@@ -173,11 +173,13 @@ let mark14 = new Marks({date:("2020-07-03"), mark: 9, student_first_name:"Pepa",
 // });
 
 //Calcular numero de profesores por asignatura.
-// Teacher.aggregate([
-   
+// Marks.aggregate([
+//     {
+//       $unwind: "$teachers" 
+//     }
 //     {
 //       $group: {
-//         _id: { subject_name: "$subject_name", teacher: { $concat: [ "$teacher_first_name", " ", "$teacher_last_name" ] } },
+//         _id: { subject_name: "$subject_name", teacher: { $concat: [ "$teachers.teacher_first_name", " ", "$teachers.teacher_last_name" ] } },
 //         count: { $sum: 1 } 
 //       }
 //     }
@@ -223,44 +225,43 @@ let mark14 = new Marks({date:("2020-07-03"), mark: 9, student_first_name:"Pepa",
 //   });
 
 //Media de nota por alumno del ultimo año.
-Marks.aggregate([
-    {
-      $match: {
-        date: {
-            $gte: new Date("2022-04-01") 
-        }
-      }
-    },
-    {
-      $group: {
-        _id: { student_first_name: "$student_first_name", student_last_name: "$student_last_name" },
-        avgMark: { $avg: "$mark" }
-      }
-    }
-]).then(result => {
-    console.log(result);
-}).catch(err => {
-    console.log(err);
-});
+// Marks.aggregate([
+//     {
+//       $match: {
+//         date: {
+//             $gte: new Date("2022-04-01") 
+//         }
+//       }
+//     },
+//     {
+//       $group: {
+//         _id: { student_first_name: "$student_first_name", student_last_name: "$student_last_name" },
+//         avgMark: { $avg: "$mark" }
+//       }
+//     }
+// ]).then(result => {
+//     console.log(result);
+// }).catch(err => {
+//     console.log(err);
+// });
 
 //Obten nombre, cantidad asignaturas por alumno con el profesor X.
-Teacher.aggregate([
-   
-    {
-      $match: {
-        "teacher_first_name": "Celia"
-      }
-    },
-    {
-      $group: {
-        _id: { student_first_name: "$student_first_name", student_last_name: "$student_last_name" }, count: { $sum: 1 } 
-      }
-    }
-  ]).then(result => {
-    console.log(result);
-  }).catch(err => {
-    console.log(err);
-  });
+
+// Marks.aggregate([
+//     {
+//       $unwind: "$teachers" 
+//     },
+//     {
+//       $group: {
+//         _id: { subject_name: "$subject_name", teacher: { $concat: [ "$teachers.teacher_first_name", " ", "$teachers.teacher_last_name" ] } },
+//         count: { $sum: 1 } 
+//       }
+//     }
+//   ]).then(result => {
+//     console.log(result);
+//   }).catch(err => {
+//     console.log(err);
+//   });
 
   
 
