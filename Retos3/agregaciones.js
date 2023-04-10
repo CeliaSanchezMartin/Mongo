@@ -113,23 +113,25 @@ let mark14 = new Marks({date:("2020-07-03"), mark: 9, student_first_name:"Pepa",
 // });
 
 // //Lista de nombre y apellidos de todos los profes.
-// Teacher.aggregate([
-//         {
-//             $project: 
-//             { "Nombre del profesor": "$teacher_first_name", "Apellido del profesor": "$teacher_last_name", _id:0},
-          
-//         },
-//       ])
-// .then((result) => {
-//     console.log(result); 
-// })
-// .catch((err) => {
-//     console.log(err);
-// });
+Marks.aggregate([
+        {
+          $unwind: "$teachers" 
+        },
+        { 
+          $project:{_id:0, "Nombre": "$teachers.teacher_first_name", "Apellido": "$teachers.teacher_last_name"}
+        }  
+        ])
+.then((result) => {
+    console.log(result); 
+})
+.catch((err) => {
+    console.log(err);
+});
 
 //Mostrar el numero de alumnos por grupo en orden inverso al alfabeto.
 
 // Marks.aggregate([
+  
 //     {
 //       $group: {
 //         _id: "$group_name", totalStudents: { $sum: 1 }

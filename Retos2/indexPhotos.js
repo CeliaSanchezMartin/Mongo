@@ -61,7 +61,7 @@ function guardarEnColeccion(usuario, url, title, description){
         description: description
     });
 
-    return newPhoto.save()
+    newPhoto.save()
     .then((res) => {
         console.log(`Foto ${res.title} subida con exito`);
     })
@@ -75,7 +75,7 @@ guardarEnColeccion("Pepito", "https://us.123rf.com/450wm/aprillrain/aprillrain22
 //Obtener fotos:
 
 function obtenerFotos(usuario){
-    return Photo.find({usuario: usuario})
+    Photo.find({usuario: usuario})
     .then((fotos) => {
         console.log(`El usuario ${usuario} tiene estas fotos ${fotos}`);
         return fotos;
@@ -110,7 +110,7 @@ modificarDescripcion("Dios", "Sin invasion alienigena")
 //Borrar una foto.
 
 function borrarFoto(usuario, title){
-    return Photo.deleteOne({usuario: usuario}, {title: title})
+     Photo.deleteOne({usuario: usuario}, {title: title})
     .then((res) => {
         console.log("Foto eliminada: ", res);
     })
@@ -127,7 +127,7 @@ borrarFoto("Pepito", "Paris");
 //Eliminar todas las fotos.
 
 function borrarTodas(usuario){
-   return Photo.deleteMany({usuario: "Pepito"})
+    Photo.deleteMany({usuario: "Pepito"})
 .then(function (res) {
     console.log("Fotos eliminadas con exito");
 })
